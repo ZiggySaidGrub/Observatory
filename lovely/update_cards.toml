@@ -1,0 +1,53 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+[vars]
+
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = "if self == G.jokers then"
+position = "after"
+payload = '''
+    table.insert(Observatory.config.play_order, card.ability.obs_id)
+    table.insert(Observatory.config.shop_order, card.ability.obs_id)
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = "local _cards = discarded_only and {} or self.cards"
+position = "after"
+payload = '''
+    if self == G.jokers and card.HELP_PLS ~= true then
+        for i = #Observatory.config.play_order, 1, -1 do
+            if Observatory.config.play_order[i] == card.ability.obs_id then
+                table.remove(Observatory.config.play_order, i)
+            end
+        end
+
+        for i = #Observatory.config.shop_order, 1, -1 do
+            if Observatory.config.shop_order[i] == card.ability.obs_id then
+                table.remove(Observatory.config.shop_order, i)
+            end
+        end
+    end
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "if G.SETTINGS.current_setup == 'New Run' then "
+position = "after"
+payload = '''
+    Observatory.config.play_order = {}
+    Observatory.config.shop_order = {}
+'''
+match_indent = true
+times = 1
+

@@ -1,0 +1,16 @@
+{
+    "id": "Observatory",
+    "name": "Observatory",
+    "author": ["grub"],
+    "description": "A mod to automate joker swapping",
+    "prefix": "observatory",
+    "main_file": "loader.lua",
+    "priority": 0,
+    "badge_colour": "E3B5FF",
+    "badge_text_colour": "FFFFFF",
+    "dependencies": [
+        "Steamodded (>=1.0.0~ALPHA-1225a)",
+        "Retcon (>=1.0.0)"
+    ],
+    "version": "1.0.0"
+}

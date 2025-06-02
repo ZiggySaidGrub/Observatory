@@ -1,0 +1,49 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+[vars]
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''local customize = nil'''
+position = "after"
+payload = '''local obs = nil'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "local customize = UIBox_button{ label = {localize('b_customize_deck')}, button = \"customize_deck\", minw = 5}"
+position = "after"
+payload = '''
+if G.STAGE == G.STAGES.RUN then
+    obs = UIBox_button{ label = {"Observatory"}, button = "observatory", minw = 5, colour = HEX("837BAF")}
+end
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "customize,"
+position = "after"
+payload = '''
+obs,
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "if G.F_NO_SAVING == true then return end"
+position = "after"
+payload = '''
+SMODS.save_mod_config(Observatory)
+'''
+match_indent = true
+times = 1

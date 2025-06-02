@@ -1,0 +1,41 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+[vars]
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "self:set_ability(center, true)"
+position = "after"
+payload = '''
+self.HELP_PLS = false
+if self.ability.obs_id == nil then
+    self.ability.obs_id = Observatory.config.next_id
+    Observatory.config.next_id = Observatory.config.next_id + 1
+end
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "if v then v:remove() end"
+position = "at"
+payload = '''
+if v and v:is(Card) then
+    if v.ability.set == "Joker" then
+        v.HELP_PLS = true
+    end
+    v:remove()
+    v=nil
+end
+if v then v:remove() end
+'''
+match_indent = true
+times = 1
+
+
+

@@ -1,0 +1,29 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+[vars]
+
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.FUNCS.select_blind = function(e)"
+position = "after"
+payload = '''
+    -- swap to joker set 1
+    if Observatory.config.play_swap then Observatory.swap("play_order") end
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.STATE = G.STATES.SHOP"
+position = "after"
+payload = '''
+    -- swap to joker set 2
+    if Observatory.config.shop_swap then Observatory.swap("shop_order") end
+'''
+match_indent = true
+times = 1
