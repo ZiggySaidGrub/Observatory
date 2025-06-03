@@ -9,8 +9,7 @@
     "badge_colour": "E3B5FF",
     "badge_text_colour": "FFFFFF",
     "dependencies": [
-        "Steamodded (>=1.0.0~ALPHA-1225a)",
-        "Retcon (>=1.0.0)"
+        "Steamodded (>=1.0.0~ALPHA-1225a)"
     ],
     "version": "1.0.0"
 }
