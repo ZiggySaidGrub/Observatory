@@ -47,6 +47,8 @@ position = "after"
 payload = '''
     Observatory.config.play_order = {}
     Observatory.config.shop_order = {}
+    Observatory.config.play_swap = false
+    Observatory.config.shop_swap = false
 '''
 match_indent = true
 times = 1
